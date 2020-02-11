@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul03.1_Container", "Cont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul03.2_TextboxÜbung", "Uebung_Textbox\Modul03.2_TextboxÜbung.csproj", "{2CE17212-346D-4B55-8CD7-685CD6B8D795}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonenDB_Bsp", "PersonenDB_Bsp\PersonenDB_Bsp.csproj", "{12183090-4FA4-47DF-9BD7-47464CC77C38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2CE17212-346D-4B55-8CD7-685CD6B8D795}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CE17212-346D-4B55-8CD7-685CD6B8D795}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CE17212-346D-4B55-8CD7-685CD6B8D795}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12183090-4FA4-47DF-9BD7-47464CC77C38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12183090-4FA4-47DF-9BD7-47464CC77C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12183090-4FA4-47DF-9BD7-47464CC77C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12183090-4FA4-47DF-9BD7-47464CC77C38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
