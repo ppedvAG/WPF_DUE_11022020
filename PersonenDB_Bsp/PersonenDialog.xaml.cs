@@ -20,9 +20,30 @@ namespace PersonenDB_Bsp
     /// </summary>
     public partial class PersonenDialog : Window
     {
+        public Person NeuePerson { get; set; }
+
         public PersonenDialog()
         {
             InitializeComponent();
+
+            this.NeuePerson = new Person();
+
+            this.DataContext = this.NeuePerson;
+        }
+
+        private void btnOk_Click(object sender, RoutedEventArgs e)
+        {
+            string ausgabe = NeuePerson.Vorname + " " + NeuePerson.Nachname + " (" + NeuePerson.Geschlecht + ")\n" + NeuePerson.Geburtsdatum.ToShortDateString() + "\n" + NeuePerson.Lieblingsfarbe.ToString();
+            if (NeuePerson.Verheiratet) ausgabe = ausgabe + "\nIst verheiratet";
+            if (MessageBox.Show(ausgabe + "\nAbspeichern?", NeuePerson.Vorname + " " + NeuePerson.Nachname, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        private void btnAbbruch_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -5,16 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PersonenDB_Bsp"
         mc:Ignorable="d"
-        Title="Neue Person" Height="275.333" Width="261.333"
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True">
+        Title="Neue Person" Height="340" Width="341.333"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True"
+        Style="{StaticResource styWnd}">
 
-    <Window.Background>
-        <LinearGradientBrush>
-            <GradientStop Color="LightYellow" Offset="0"/>
-            <GradientStop Color="Orange" Offset="1"/>
-        </LinearGradientBrush>
-    </Window.Background>
+    <Window.Resources>
+        <local:EnumToBoolConverter x:Key="enum2bool"/>
 
+        <ObjectDataProvider x:Key="odpColorsProperties"
+                            ObjectInstance="{x:Type Colors}"
+                            MethodName="GetProperties"/>
+    </Window.Resources>
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
@@ -31,65 +32,72 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Vorname:"
-                   VerticalAlignment="Center"/>
+        <TextBlock Text="Vorname:"/>
         <TextBlock Text="Nachname:" 
-                   Grid.Row="1"
-                   VerticalAlignment="Center"/>
+                   Grid.Row="1"/>
         <TextBlock Text="Geburtsdatum:" 
-                   Grid.Row="2"
-                   VerticalAlignment="Center"/>
+                   Grid.Row="2"/>
         <TextBlock Text="Verheiratet:" 
-                   Grid.Row="3"
-                   VerticalAlignment="Center"/>
+                   Grid.Row="3"/>
         <TextBlock Text="Lieblingsfarbe:" 
-                   Grid.Row="4"
-                   VerticalAlignment="Center"/>
+                   Grid.Row="4"/>
         <TextBlock Text="Geschlecht:" 
                    Grid.Row="5"
                    VerticalAlignment="Top"/>
 
         <TextBox x:Name="tbxVorname"
                  Grid.Column="1"
-                 Margin="2"/>
+                 Text="{Binding Vorname}"/>
         <TextBox x:Name="tbxNachname"
                  Grid.Column="1" Grid.Row="1"
-                 Margin="2"/>
+                 Text="{Binding Nachname}"/>
         <DatePicker x:Name="dprGeburtsdatum"
                     Grid.Column="1" Grid.Row="2"
-                 Margin="2"/>
+                    SelectedDate="{Binding Geburtsdatum}"/>
         <CheckBox x:Name="chbVerheiratet"
                   Grid.Column="1" Grid.Row="3"
-                 Margin="2"/>
+                  IsChecked="{Binding Verheiratet}"/>
 
         <ComboBox x:Name="cbbLieblingsfarbe"
                   Grid.Column="1" Grid.Row="4"
-                 Margin="2">
-            <ComboBoxItem Content="Blau"/>
+                  ItemsSource="{Binding Source={StaticResource odpColorsProperties}}"
+                  SelectedValuePath="Name"
+                  SelectedValue="{Binding Lieblingsfarbe}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Name}"/>
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+            <!--<ComboBoxItem Content="Blau"/>
             <ComboBoxItem Content="Grün"/>
             <ComboBoxItem Content="Gelb"/>
-            <ComboBoxItem Content="Rot"/>
+            <ComboBoxItem Content="Rot"/>-->
         </ComboBox>
 
         <StackPanel Margin="2"
                     Grid.Column="1" Grid.Row="5">
             <RadioButton Content="M"
-                         GroupName="rbgGender"/>
+                         GroupName="rbgGender"
+                         IsChecked="{Binding Geschlecht, Converter={StaticResource enum2bool}, ConverterParameter={x:Static local:Gender.Männlich}}"/>
             <RadioButton Content="W"
-                         GroupName="rbgGender"/>
+                         GroupName="rbgGender"
+                         IsChecked="{Binding Geschlecht, Converter={StaticResource enum2bool}, ConverterParameter={x:Static local:Gender.Weiblich}}"/>
             <RadioButton Content="D"
-                         GroupName="rbgGender"/>
+                         GroupName="rbgGender"
+                         IsChecked="{Binding Geschlecht, Converter={StaticResource enum2bool}, ConverterParameter={x:Static local:Gender.Divers}}"/>
         </StackPanel>
 
         <WrapPanel Grid.Row="6" Grid.ColumnSpan="2"
                    HorizontalAlignment="Right" Margin="0,15">
             <Button x:Name="btnOk"
-                    Width="80"
-                    Margin="5,0"
-                    Content="OK"/>
+                    Content="OK"
+                    Click="btnOk_Click"/>
             <Button x:Name="btnAbbruch"
-                    Width="80"
-                    Content="Abbrechen"/>
+                    Content="Abbrechen"
+                    Click="btnAbbruch_Click"/>
         </WrapPanel>
     </Grid>
 </Window>

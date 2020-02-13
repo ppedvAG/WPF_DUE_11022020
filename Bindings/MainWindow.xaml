@@ -1,0 +1,45 @@
+﻿<Window x:Class="Bindings.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bindings"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="146.35" Width="419.204">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Slider x:Name="slrEins"
+                    Width="300"
+                    Value="5"/>
+            <TextBox Width="30">
+                <TextBox.Text>
+                    <Binding ElementName="slrEins" Path="Value" Mode="TwoWay" UpdateSourceTrigger="LostFocus"/>
+                </TextBox.Text>
+            </TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Slider x:Name="slrZwei"
+                    Width="300"
+                    Value="5"/>
+            <TextBox Width="30"
+                     Text="{Binding ElementName=slrZwei, Path=Value, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Slider x:Name="slrDrei"
+                    Width="300"
+                    Value="5"/>
+            <TextBox Width="30"
+                     Text="{Binding ElementName=slrDrei, Path=Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Slider x:Name="slrVier"
+                    Width="300"
+                    Value="5"/>
+            <TextBox Width="30"
+                     x:Name="tbxVier"
+                     Text="{Binding ElementName=slrVier, Path=Value, Mode=OneWayToSource, UpdateSourceTrigger=Explicit}"/>
+            <Button Content="Übernehmen"
+                    Click="Button_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

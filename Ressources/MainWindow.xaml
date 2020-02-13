@@ -1,0 +1,31 @@
+﻿<Window x:Class="Ressources.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ressources"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:p="clr-namespace:Ressources.Properties"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="234.615" Width="345.701">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Dictionary1.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <StackPanel x:Name="splMain">
+        
+        <StackPanel.Resources>
+            <sys:Double x:Key="FontSize">30</sys:Double>
+        </StackPanel.Resources>
+        
+        <Button Content="{StaticResource stringAusDict}" FontSize="{StaticResource FontSize}"
+                Background="{StaticResource globalButtonBackColor}"
+                Click="Button_Click"/>
+        <Button Content="{x:Static p:Resources.meinString}" FontSize="{DynamicResource FontSize}"/>
+    </StackPanel>
+</Window>
