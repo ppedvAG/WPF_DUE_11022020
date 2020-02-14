@@ -1,0 +1,145 @@
+﻿<Window x:Class="MVVM_PersonenDb.View.DetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVM_PersonenDb.View"
+        xmlns:conv="clr-namespace:MVVM_PersonenDb"
+        xmlns:m="clr-namespace:MVVM_PersonenDb.Model"
+        mc:Ignorable="d"
+        Title="Neue Person" Height="340" Width="341.333"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True"
+        Style="{StaticResource styWnd}"
+        x:Name="wndDetail">
+
+    <Window.Resources>
+        <conv:EnumToBoolConverter x:Key="enum2bool"/>
+
+        <ObjectDataProvider x:Key="odpColorsProperties"
+                            ObjectInstance="{x:Type Colors}"
+                            MethodName="GetProperties"/>
+
+        <ControlTemplate x:Key="ctpError">
+            <StackPanel Orientation="Horizontal">
+                <Border BorderBrush="Red" BorderThickness="1" x:Name="BdrAep">
+                    <AdornedElementPlaceholder x:Name="Aep"/>
+                </Border>
+                <TextBlock Text="!" Foreground="Red" FontSize="{StaticResource doubleFontSize}"
+                           Margin="3,0" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Popup AllowsTransparency="True" PopupAnimation="Fade"
+                       PlacementTarget="{Binding ElementName=BdrAep}" Placement="Bottom"
+                       IsOpen="{Binding ElementName=Aep, Path=AdornedElement.IsMouseOver, Mode=OneWay}">
+                    <TextBlock Text="{Binding ElementName=Aep, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                               Foreground="White" Background="Red" Padding="2" FontSize="{StaticResource doubleFontSize}"/>
+                </Popup>
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Vorname:"/>
+        <TextBlock Text="Nachname:" 
+                   Grid.Row="1"/>
+        <TextBlock Text="Geburtsdatum:" 
+                   Grid.Row="2"/>
+        <TextBlock Text="Verheiratet:" 
+                   Grid.Row="3"/>
+        <TextBlock Text="Lieblingsfarbe:" 
+                   Grid.Row="4"/>
+        <TextBlock Text="Geschlecht:" 
+                   Grid.Row="5"
+                   VerticalAlignment="Top"/>
+
+        <TextBox x:Name="tbxVorname"
+                 Grid.Column="1"
+                 Text="{Binding AktuellePerson.Vorname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ctpError}"/>
+        <TextBox x:Name="tbxNachname"
+                 Grid.Column="1" Grid.Row="1"
+                 Text="{Binding AktuellePerson.Nachname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ctpError}"/>
+        <DatePicker x:Name="dprGeburtsdatum"
+                    Grid.Column="1" Grid.Row="2"
+                    SelectedDate="{Binding AktuellePerson.Geburtsdatum, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    Validation.ErrorTemplate="{StaticResource ctpError}"/>
+        <CheckBox x:Name="chbVerheiratet"
+                  Grid.Column="1" Grid.Row="3"
+                  IsChecked="{Binding AktuellePerson.Verheiratet}"/>
+
+        <ComboBox x:Name="cbbLieblingsfarbe"
+                  Grid.Column="1" Grid.Row="4"
+                  ItemsSource="{Binding Source={StaticResource odpColorsProperties}}"
+                  SelectedValuePath="Name"
+                  SelectedValue="{Binding AktuellePerson.Lieblingsfarbe, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                  Validation.ErrorTemplate="{StaticResource ctpError}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Name}"/>
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+            <!--<ComboBoxItem Content="Blau"/>
+            <ComboBoxItem Content="Grün"/>
+            <ComboBoxItem Content="Gelb"/>
+            <ComboBoxItem Content="Rot"/>-->
+        </ComboBox>
+
+        <StackPanel Margin="2"
+                    Grid.Column="1" Grid.Row="5">
+            <RadioButton Content="M"
+                         GroupName="rbgGender"
+                         IsChecked="{Binding AktuellePerson.Geschlecht, Converter={StaticResource enum2bool}, ConverterParameter={x:Static m:Gender.Männlich}}"/>
+            <RadioButton Content="W"
+                         GroupName="rbgGender"
+                         IsChecked="{Binding AktuellePerson.Geschlecht, Converter={StaticResource enum2bool}, ConverterParameter={x:Static m:Gender.Weiblich}}"/>
+            <RadioButton Content="D"
+                         GroupName="rbgGender"
+                         IsChecked="{Binding AktuellePerson.Geschlecht, Converter={StaticResource enum2bool}, ConverterParameter={x:Static m:Gender.Divers}}"/>
+        </StackPanel>
+
+        <WrapPanel Grid.Row="6" Grid.ColumnSpan="2"
+                   HorizontalAlignment="Right" Margin="0,15">
+            <Button x:Name="btnOk"
+                    Content="OK"
+                    Command="{Binding OkCmd}"
+                    CommandParameter="{Binding ElementName=wndDetail}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource styButtonBase}">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=tbxVorname, Path=(Validation.HasError)}" Value="False"/>
+                                    <Condition Binding="{Binding ElementName=tbxNachname, Path=(Validation.HasError)}" Value="False"/>
+                                    <Condition Binding="{Binding ElementName=dprGeburtsdatum, Path=(Validation.HasError)}" Value="False"/>
+                                    <Condition Binding="{Binding ElementName=cbbLieblingsfarbe, Path=(Validation.HasError)}" Value="False"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="btnAbbruch"
+                    Content="Abbrechen"
+                    Command="{Binding CancelCmd}"
+                    CommandParameter="{Binding ElementName=wndDetail}"/>
+        </WrapPanel>
+    </Grid>
+</Window>

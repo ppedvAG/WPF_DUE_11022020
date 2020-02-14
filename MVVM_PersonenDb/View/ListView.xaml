@@ -1,0 +1,72 @@
+﻿<Window x:Class="MVVM_PersonenDb.View.ListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVM_PersonenDb.View"
+        xmlns:conv="clr-namespace:MVVM_PersonenDb"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="DbAnsicht" Height="547.931" Width="740.689"
+        Style="{StaticResource styWnd}">
+    <Window.Resources>
+        <conv:StringToBrushConverter x:Key="string2brush"/>
+    </Window.Resources>
+
+    <DockPanel Margin="5">
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Datei">
+                <MenuItem Header="Beenden"
+                          Command="{Binding CloseCmd}"/>
+            </MenuItem>
+        </Menu>
+
+        <WrapPanel Margin="10,0,10,5"
+                   DockPanel.Dock="Bottom"
+                   HorizontalAlignment="Right">
+            <Button Content="Neue Person"
+                    x:Name="btnNew"
+                    Command="{Binding NewCmd}"/>
+            <Button Content="Ändere Person"
+                    x:Name="btnEdit"
+                    Command="{Binding EditCmd}"
+                    CommandParameter="{Binding ElementName=dgdPersonen, Path=SelectedItem}"/>
+            <Button Content="Lösche Person"
+                    x:Name="btnDelete"
+                    Command="{Binding DeleteCmd}"
+                    CommandParameter="{Binding ElementName=dgdPersonen, Path=SelectedItem}"/>
+        </WrapPanel>
+
+        <DataGrid x:Name="dgdPersonen" Margin="10"
+                  ItemsSource="{Binding PersonenListe}"
+                  AutoGenerateColumns="False"
+                  IsManipulationEnabled="False" IsReadOnly="True"
+                  AlternatingRowBackground="Wheat"
+                  SelectionMode="Single">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding EditCmd}"
+                                           CommandParameter="{Binding ElementName=dgdPersonen, Path=SelectedItem}"/>
+                </i:EventTrigger>    
+            </i:Interaction.Triggers>
+                        
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" Width="*"/>
+                <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}" Width="*"/>
+                <DataGridTextColumn Header="Geschlecht" Binding="{Binding Geschlecht}" Width="Auto"/>
+                <DataGridTextColumn Header="Geburtsdatum" Binding="{Binding Geburtsdatum, StringFormat=dd.MM.yyyy}" Width="Auto"/>
+                <DataGridCheckBoxColumn Header="Verheiratet" Binding="{Binding Verheiratet}" Width="Auto"/>
+                <DataGridTextColumn Header="Lieblingsfarbe" Binding="{Binding Lieblingsfarbe}" Width="Auto">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="{Binding Lieblingsfarbe, Converter={StaticResource string2brush}}"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </DockPanel>
+</Window>
