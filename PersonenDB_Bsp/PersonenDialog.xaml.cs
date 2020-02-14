@@ -37,6 +37,7 @@ namespace PersonenDB_Bsp
             if (NeuePerson.Verheiratet) ausgabe = ausgabe + "\nIst verheiratet";
             if (MessageBox.Show(ausgabe + "\nAbspeichern?", NeuePerson.Vorname + " " + NeuePerson.Nachname, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
+                this.DialogResult = true;
                 this.Close();
             }
         }

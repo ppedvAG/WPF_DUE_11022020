@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{12183090-4FA4-47DF-9BD7-47464CC77C38}</ProjectGuid>
+    <ProjectGuid>{25909044-4428-454D-BB74-868E649B55EA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>PersonenDB_Bsp</RootNamespace>
-    <AssemblyName>PersonenDB_Bsp</AssemblyName>
+    <RootNamespace>Validierung</RootNamespace>
+    <AssemblyName>Validierung</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,17 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SelectionToBoolConverter.cs" />
-    <Compile Include="StringToBrushConverter.cs" />
-    <Page Include="DbAnsicht.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GlobalResources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PersonenDialog.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -73,17 +63,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DbAnsicht.xaml.cs">
-      <DependentUpon>DbAnsicht.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EnumToBoolConverter.cs" />
-    <Compile Include="Person.cs" />
-    <Compile Include="PersonenDialog.xaml.cs">
-      <DependentUpon>PersonenDialog.xaml</DependentUpon>
+    <Compile Include="Ipv4Validierung.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

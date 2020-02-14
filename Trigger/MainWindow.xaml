@@ -1,0 +1,43 @@
+﻿<Window x:Class="Trigger.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Trigger"
+        xmlns:uc="clr-namespace:UserControls;assembly=UserControls"
+        xmlns:xt="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="477.632" Width="361.842">
+    
+    <StackPanel Background="{Binding ElementName=cpChoice, Path=PickedColor}" HorizontalAlignment="Left" Width="354">
+        <uc:ColorPicker x:Name="cpChoice"/>
+        
+        <Button Content="Ändern"
+                Click="Button_Click"
+                x:Name="btnClick"/>
+        <TextBlock x:Name="tblMain">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="NEIN"/>
+                    <Setter Property="Foreground" Value="Red"/>
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=btnClick, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Text" Value="KLICK MICH HART"/>
+                            <Setter Property="Foreground" Value="HotPink"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BoolVal}" Value="True">
+                            <Setter Property="Text" Value="JA"/>
+                            <Setter Property="Foreground" Value="Green"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                    
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <xt:IntegerUpDown/>
+
+        <xt:CalculatorUpDown/>
+    </StackPanel>
+</Window>

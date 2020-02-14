@@ -35,11 +35,13 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
-    <Style TargetType="Button">
+    <Style TargetType="Button" x:Key="styButtonBase">
         <Setter Property="Width" Value="120"/>
         <Setter Property="Margin" Value="5,0,0,0"/>
         <Setter Property="FontSize" Value="{StaticResource doubleFontSize}"/>
     </Style>
+
+    <Style TargetType="Button" BasedOn="{StaticResource styButtonBase}"/>
 
     <Style TargetType="DatePicker">
         <Setter Property="Margin" Value="2"/>
