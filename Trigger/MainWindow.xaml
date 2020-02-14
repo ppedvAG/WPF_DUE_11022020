@@ -10,7 +10,6 @@
         Title="MainWindow" Height="477.632" Width="361.842">
     
     <StackPanel Background="{Binding ElementName=cpChoice, Path=PickedColor}" HorizontalAlignment="Left" Width="354">
-        <uc:ColorPicker x:Name="cpChoice"/>
         
         <Button Content="Ändern"
                 Click="Button_Click"
@@ -22,6 +21,8 @@
                     <Setter Property="Foreground" Value="Red"/>
 
                     <Style.Triggers>
+                        <!--Mittels Trigger kann das Verhalten/Aussehen von Objekten unter bestimmten Umständen geändert werden-->
+                        <!--Der DataTrigger reagiert auf eine Veränderung einer WPF- oder .NET-Property>-->
                         <DataTrigger Binding="{Binding ElementName=btnClick, Path=IsMouseOver}" Value="True">
                             <Setter Property="Text" Value="KLICK MICH HART"/>
                             <Setter Property="Foreground" Value="HotPink"/>
@@ -35,9 +36,12 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-
+        
+        <!--vgl. Modul12_UserControls-->
+        <uc:ColorPicker x:Name="cpChoice"/>
+        
+        <!--ExtendedWpf-Bibliothek-->
         <xt:IntegerUpDown/>
-
         <xt:CalculatorUpDown/>
     </StackPanel>
 </Window>

@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul03.1_Container", "Cont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul03.2_TextboxÜbung", "Uebung_Textbox\Modul03.2_TextboxÜbung.csproj", "{2CE17212-346D-4B55-8CD7-685CD6B8D795}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonenDB_Bsp", "PersonenDB_Bsp\PersonenDB_Bsp.csproj", "{12183090-4FA4-47DF-9BD7-47464CC77C38}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonenDB_Bsp (vgl. MVVM)", "PersonenDB_Bsp\PersonenDB_Bsp (vgl. MVVM).csproj", "{12183090-4FA4-47DF-9BD7-47464CC77C38}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul04_RoutedEvents", "RoutedEvents\Modul04_RoutedEvents.csproj", "{A0E69528-AA24-4B52-9EBD-7A3608E395AC}"
 EndProject

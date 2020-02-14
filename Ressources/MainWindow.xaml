@@ -9,23 +9,34 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="234.615" Width="345.701">
 
+    <!--Über die Ressourcen von App/Window/Container können für die entsprechende Range Daten
+        zur Verfügung gestellt werden. Die Verbindung von Properties zu diesen Resourcen wird dann
+        über eine StaticResource-Bindung hergestellt. Alternativ kann eine DynamicRessource-Bindung 
+        erstellt werden, wodurch die gebundene Property auf Veränderungen an der Ressource durch 
+        den CodeBehind reagiert.-->
     <Window.Resources>
         <ResourceDictionary>
+            <!--Die Einbindung von mehreren ResourceDictionaries erfolgt über die Property MergedDictionaries-->
             <ResourceDictionary.MergedDictionaries>
+                <!--ResourceDictionaries sind XAML-Dateien, welche nur Ressourcen beinhalten-->
                 <ResourceDictionary Source="Dictionary1.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    
+
     <StackPanel x:Name="splMain">
-        
+
         <StackPanel.Resources>
             <sys:Double x:Key="FontSize">30</sys:Double>
         </StackPanel.Resources>
-        
+
+        <!--Eine Anbindung an Ressourcen erfolgt entweder über eine StaticResource-Bindung, welche den Wert einmalig einholt-->
+        <!--oder über eine DynamicResource-Bindung, welche permanent nach Veränderungen sucht und diese übernimmt-->
         <Button Content="{StaticResource stringAusDict}" FontSize="{StaticResource FontSize}"
                 Background="{StaticResource globalButtonBackColor}"
                 Click="Button_Click"/>
+        <!--Die x:Static-Bindung ist ebenfalls eine statische Ressourcen-Bindung, welche mächtiger ist, als die 'Normale'.
+        Sie kann zum Beispiel (wie hier) für Bindungen an eine resX-Datei (in den Projekt-Properties) benutzt werden.-->
         <Button Content="{x:Static p:Resources.meinString}" FontSize="{DynamicResource FontSize}"/>
     </StackPanel>
 </Window>

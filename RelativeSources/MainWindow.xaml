@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:RelativeSources"
         mc:Ignorable="d"
         Title="MainWindow" Height="463.158" Width="418.421">
+    <!--Für eine relative Bindung (eine Bindung ohne Angabe des spezifischen zu bindenen Objekts) muss in die
+    gewünschte Property ein Bidungsobjekt gelegt werden, in dessen Eigenschaft 'RelativeSource' ein
+    RelativSource-Objekt gelegt wurde-->
     <StackPanel Background="White">
+        <!--Mittels dem Mode=Self kann eine Property an eine andere Property des selben Objekts gebunden werden-->
         <Rectangle x:Name="rctShow"
                    Width="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Height}"
                    Fill="Blue"/>
@@ -14,6 +18,9 @@
 
         <StackPanel Background="LightBlue" Margin="30">
             <StackPanel Background="Yellow" Margin="30">
+                <!--Mittels dem Mode=FindAncestor kann eine Property an eine Property eines hirachisch übergeordneten
+                    Objekts gebunden werden. Mittels der Property 'AnchestorType' kann die Art des Objekts definiert werden 
+                    und mittels 'AnchestorLevel' kann die Ebene des Objekts bestimmt werden-->
                 <Button Content="Button" Margin="30"
                         Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type StackPanel}, AncestorLevel=3}, Path=Background}"/>
             </StackPanel>

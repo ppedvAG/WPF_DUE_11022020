@@ -32,13 +32,15 @@ namespace Controls
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+            //Schließen des aktuellen Fensters (wenn dies das letzte geöffnete Fenster der Applikation ist, wird die gesamte App geschlossen)
             this.Close();
-
+            //Direktes Beenden der App (inkl. aller Fenster)
             Application.Current.Shutdown();
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
+            //Öffnen eines neuen Fenster
             MainWindow wnd2 = new MainWindow();
             wnd2.ShowDialog();
         }

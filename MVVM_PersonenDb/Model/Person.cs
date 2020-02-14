@@ -9,26 +9,52 @@ using System.Windows.Media;
 
 namespace MVVM_PersonenDb.Model
 {
+	//Im Model-Teil eines MVVM-Programms werden die Buisness-Klassen abgelegt. Diese Klassen dürfen keine Referenzen auf die anderen MVVM-Teile haben.
+	//Dieses Beispiel besteht nur aus einer Model-Klasse sowie einem Enumerator.
+
+	//Enumerator zum Abbilden des Geschlechts
 	public enum Gender { Männlich, Weiblich, Divers }
+
+	//Model-Klasse 'Person' mit dem IDataErrorInfo-Interface zur Validierung der Benutzereingaben bezüglich der Klassenproperties
 	public class Person : IDataErrorInfo
 	{
+		#region Statische Member
+		//Statische Listenproperty zum Ablegen der geladenen Personen (ObservableCollection, damit die GUI über Veränderungen innerhalb der Liste
+		//informiert wird)
 		public static ObservableCollection<Person> PersonenListe { get; set; } = new ObservableCollection<Person>();
 
+		//Methode, welche Bsp-Daten generiert und damit den Zugriff auf eine Datenbank simuliert
 		public static void LadePersonenAusDb()
 		{
 			PersonenListe.Add(new Person() { Vorname = "Otto", Nachname = "Meier", Geburtsdatum = new DateTime(2012, 5, 12), Verheiratet = true, Lieblingsfarbe = Colors.Blue, Geschlecht = Gender.Männlich });
 			PersonenListe.Add(new Person() { Vorname = "Jürgen", Nachname = "Müller", Geburtsdatum = new DateTime(2013, 6, 15), Verheiratet = false, Lieblingsfarbe = Colors.Blue, Geschlecht = Gender.Divers });
 			PersonenListe.Add(new Person() { Vorname = "Maria", Nachname = "Fischer", Geburtsdatum = new DateTime(2001, 7, 13), Verheiratet = true, Lieblingsfarbe = Colors.Blue, Geschlecht = Gender.Weiblich });
 		}
+		#endregion
 
-
+		#region Klassenmember
+		//Parameterloser Standartkonstruktor, welcher die leeren 'Person'-Objekte auf einen Startzustand setzt
 		public Person()
 		{
+			//Die 'Gerburtsdatum'-Property wird auf das aktuelle Datum gesetzt, damit der Benutzer innerhalb der Auswahlmaske nicht so viel suchen muss
 			Geburtsdatum = DateTime.Now;
+			//Die String-Eigenschaften werden auf "" initialisiert, um GUI-Fehler zu vermeiden
 			Vorname = "";
 			Nachname = "";
 		}
 
+		//Kopierkonstruktor, welcher eine 1-zu-1-Kopie eines übergebenen 'Person'-Objekts erzeugt
+		public Person(Person altePerson)
+		{
+			Vorname = altePerson.Vorname;
+			Nachname = altePerson.Nachname;
+			Verheiratet = altePerson.Verheiratet;
+			Lieblingsfarbe = altePerson.Lieblingsfarbe;
+			Geschlecht = altePerson.Geschlecht;
+			Geburtsdatum = new DateTime(altePerson.Geburtsdatum.Year, altePerson.Geburtsdatum.Month, altePerson.Geburtsdatum.Day);
+		}
+
+		//Felder und Properties der 'Person'-Klasse
 		private string vorname;
 		public string Vorname
 		{
@@ -71,11 +97,13 @@ namespace MVVM_PersonenDb.Model
 			set { geschlecht = value; }
 		}
 
+		//Durch das Interface geforderte Properties
 		public string Error
 		{
 			get { return ""; }
 		}
 
+		//Property, welche die Validierungsfehler und deren Fehlermeldungen beinhaltet
 		public string this[string columnName]
 		{
 			get
@@ -106,14 +134,7 @@ namespace MVVM_PersonenDb.Model
 
 		}
 
-		public Person(Person altePerson)
-		{
-			Vorname = altePerson.Vorname;
-			Nachname = altePerson.Nachname;
-			Verheiratet = altePerson.Verheiratet;
-			Lieblingsfarbe = altePerson.Lieblingsfarbe;
-			Geschlecht = altePerson.Geschlecht;
-			Geburtsdatum = new DateTime(altePerson.Geburtsdatum.Year, altePerson.Geburtsdatum.Month, altePerson.Geburtsdatum.Day);
-		}
+		#endregion
+
 	}
 }

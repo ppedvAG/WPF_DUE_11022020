@@ -28,6 +28,7 @@
             <Button Content="Neue Person"
                     x:Name="btnNew"
                     Command="{Binding NewCmd}"/>
+            <!--Der Edit- und der Delete-Command übergaben als Parameter das in dem DataGrid ausgewählte Objekt-->
             <Button Content="Ändere Person"
                     x:Name="btnEdit"
                     Command="{Binding EditCmd}"
@@ -38,6 +39,14 @@
                     CommandParameter="{Binding ElementName=dgdPersonen, Path=SelectedItem}"/>
         </WrapPanel>
 
+        <!--DataGrids werden zur Visualisierung komplexer Datenlisten verwendet. Die ItemSource-Property ist
+        über eine Kurzbindung an den DataContext gebunden. Die einzelnen Eigenschaften der Objekte (vgl. die
+        Column-Einträge) sind per Kurzbindungen an die ItemSource gebunden.
+        Mit AutoGenerateColumns="False" verhindert man eine automatische Generierung der Spalten.
+        IsManipulationEnabled="False" und IsReadOnly="True" führen dazu, dass der Benutzer die Einträge nicht 
+        direkt bearbeiten kann.
+        Setzt man sowohl Background, als auch AlternatingRowBackground, wechseln sich die Zeilen ihre Farbe
+        betreffend ab.-->
         <DataGrid x:Name="dgdPersonen" Margin="10"
                   ItemsSource="{Binding PersonenListe}"
                   AutoGenerateColumns="False"
@@ -45,13 +54,15 @@
                   AlternatingRowBackground="Wheat"
                   SelectionMode="Single">
 
+            <!--Mithilfen von Interaktion-Trigger können beliebige RoutedEvents auf Commands umgeleitet werden-->
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding EditCmd}"
                                            CommandParameter="{Binding ElementName=dgdPersonen, Path=SelectedItem}"/>
                 </i:EventTrigger>    
             </i:Interaction.Triggers>
-                        
+
+            <!--In der Columns-Property definiert man die benötigten Spalten und bindet diese an die ItemSource-->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" Width="*"/>
                 <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}" Width="*"/>
@@ -59,6 +70,7 @@
                 <DataGridTextColumn Header="Geburtsdatum" Binding="{Binding Geburtsdatum, StringFormat=dd.MM.yyyy}" Width="Auto"/>
                 <DataGridCheckBoxColumn Header="Verheiratet" Binding="{Binding Verheiratet}" Width="Auto"/>
                 <DataGridTextColumn Header="Lieblingsfarbe" Binding="{Binding Lieblingsfarbe}" Width="Auto">
+                    <!--Mithilfe der CellStyle-Property können die Styles von Zellen angepasst werden-->
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
                             <Setter Property="Background" Value="{Binding Lieblingsfarbe, Converter={StaticResource string2brush}}"/>

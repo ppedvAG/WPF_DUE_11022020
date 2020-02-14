@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UserControls"
              mc:Ignorable="d" Height="159.273" Width="315.789">
+    <!--UserControls werden verwendetg um eigene Control-Elemente zu erstellen und zu versiegeln, so dass der Benutzer die Properties
+    der Teilelemente nicht mehr direkt verwendet kann.-->
     <UserControl.Resources>
         <local:DoublesToBrushConverter x:Key="doubles2brush"/>
     </UserControl.Resources>

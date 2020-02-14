@@ -7,8 +7,11 @@ using System.Windows.Input;
 
 namespace Commands
 {
+    //Commandklassen müssen das Interface ICommand implementieren
     public class CustomCommand : ICommand
     {
+        //Diese Command-Klasse ist nicht spezialisiert. Sie kann über den Konstruktor mit beliebigen Methoden befüllt werden
+
         //Delegatedefinition
         public delegate bool CanExecuteDelegate(object parameter);
         public delegate void ExecuteDelegate(object parameter);

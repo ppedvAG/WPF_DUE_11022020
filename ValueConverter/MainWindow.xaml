@@ -8,16 +8,24 @@
         Title="MainWindow" Height="426.672" Width="365.168">
 
     <Window.Resources>
+        <!--Wenn eine Bindung an eine Property durchgeführt werden soll, welche einen anderen Datentyp liefert,
+        als ihn die Ziel-Property erwartet (oder ein Wert vor der Übergabe manipuliert werden soll), muss in den 
+        Ressourcen ein Converter eingebunden werden, welcher die Typumwandlung übernimmt-->
         <local:DoublesToBrushConverter x:Key="doubles2brush"/>
     </Window.Resources>
     
     <StackPanel Margin="10">
+        
+        <!--ValueConverter-->
+
         <Slider Minimum="0" Maximum="255"
                 x:Name="slrRot"
                 Value="0"/>
         <Border BorderBrush="Black" BorderThickness="1" Width="100" Height="100">
             <Rectangle Width="100" Height="100">
                 <Rectangle.Fill>
+                    <!--Anstelle einer Bereitstellung über die Ressourcen, kann der Converter auch
+                    direkt in dem Binding-Objekt instanziert werden-->
                     <Binding ElementName="slrRot" Path="Value">
                         <Binding.Converter>
                             <local:DoubleToBrushConverter/>
@@ -27,6 +35,9 @@
             </Rectangle>
         </Border>
         <Separator Margin="5"/>
+        
+        <!--MultiValueConverter-->
+
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="R:"
                        Foreground="Red"
@@ -88,6 +99,8 @@
                        Height="100"
                        x:Name="RctOutput">
                 <Rectangle.Fill>
+                    <!--Wenn mehrere Quellen zu an dasselbe Ziel gebunden werden, muss ein MultiBinding etabliert werden.
+                    Der Converter erhält die Werte der Bindungen in der Reihenfolge, in wechler sie in XAML deklaiert wurden.-->
                     <MultiBinding Converter="{StaticResource doubles2brush}">
                         <Binding ElementName="SlrRed" Path="Value"/>
                         <Binding ElementName="SlrGreen" Path="Value"/>

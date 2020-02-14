@@ -7,6 +7,7 @@ using System.Windows.Input;
 
 namespace MVVM_PersonenDb
 {
+    //Klasse, welche die Commands (bzw. deren zu befüllende Hülle) zu Verfügung stellt (vgl. Modul 13)
     public class CustomCommand : ICommand
     {
         //Delegatedefinition

@@ -24,6 +24,7 @@ namespace Commands
         {
             InitializeComponent();
 
+            //Initialisierung des Commands mit Übergabe der beiden benötigten Methoden in Lamda-Schreibweise
             CloseCmd = new CustomCommand
                 (
                     parameter => (parameter as MainWindow).Width > 500,
@@ -31,9 +32,11 @@ namespace Commands
                     parameter => (parameter as MainWindow).Close()
                 );
 
+            //Setzen des DataContext, damit die Kurzbindung an das Command funktioniert
             this.DataContext = this;
         }
 
+        //Command-Property
         public CustomCommand CloseCmd { get; set; }
     }
 }

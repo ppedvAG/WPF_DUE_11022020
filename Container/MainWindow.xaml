@@ -7,13 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="660.27" Width="527.007">
 
+    <!--In WPF können verschiedene Container mit unterschiedlichem Verhalten zum Layouting verwendet werden, um Controls anzuordnen-->
     <ScrollViewer VerticalScrollBarVisibility="Auto"
                   HorizontalScrollBarVisibility="Visible">
 
- 
+
+        <!--Der ScrollViewer zweigt automatisch eine ScrollBar an, wenn der Content des ScrollViewers im Fenster nicht mehr vollständig
+        sichtbar ist-->
         <StackPanel>
 
             <Canvas Height="200">
+                <!--Ein Canvas bietet seinem Content absolute Positions-Koordinaten an, an welchem die Objekte festgemacht werden-->
+                <!--Über die AttachedProperties Canvas.Left und Canvas.Top (Props des Canvas, welche sich aber auf die Content-Elemente beziehen)
+                kann die Position der Elemenete im Canvas definiert werden-->
                 <Ellipse Height="50"
                          Width="100"
                          Fill="Green"
@@ -29,6 +35,8 @@
 
             <StackPanel Orientation="Horizontal"
                     Height="50">
+                <!--StackPanels 'stapeln' die beinhaltenden Elemente je nach Orientierung, wobei sie in dieser Richtung den Elementen eine minimale
+                Ausdehnung gestatten, in der anderen Richtung aber eine Maximale-->
                 <Button Content="Click"/>
                 <Button Content="Click"/>
                 <Button Content="Click"/>
@@ -38,6 +46,7 @@
             </StackPanel>
 
             <WrapPanel>
+                <!--WrapPanels agieren ähnlich wie StackPanels, verschieben jedoch die Elemente, wenn diese in einem Fenster nicht mehr sichtbar sind-->
                 <Button Content="Click"/>
                 <Button Content="Click"/>
                 <Button Content="Click"/>
@@ -49,6 +58,11 @@
 
             <DockPanel Height="200"
                    LastChildFill="False">
+                <!--In DockPanels können Elemente über die AttachedProperty DockPanel.Dock einer Seite zugewiesen werden.
+                Nicht zugewiesene Elemente teilen sich den verbleibenden Platz. Die Ausrichtung der Elemente orientiert
+                sich zudem an der Zuweisungsreihenfolge.
+                Die LastChildFill-Eigenschaft gibt an, ob die nicht zugeordneten Elemente den verbleibenden Platz komplett
+                ausfüllen sollen oder nicht.-->
                 <Button Content="Click"
                     DockPanel.Dock="Left"/>
                 <Button Content="Click"
@@ -65,8 +79,14 @@
 
             <Border BorderBrush="Black"
                 BorderThickness="5">
+                <!--Border sind grafische Elemente mit einer Content-Eigenschaft-->
                 <Grid>
+                    <!--In Grids müssen Spalten und Zeilen zunächst definiert werden, bevor den Elementen über Grid.Row
+                    und Grid.Column eine Zelle zugeordnet wird.-->
                     <Grid.ColumnDefinitions>
+                        <!--In den GridDefinitions können Spalten und Zeilen Breite/Höhe zugewiesen werden.
+                        Auto    = Minimaler Platz des gröten Elements der jeweiligen Spalte/Zeile
+                        *       = verbleibender Platz-->
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -90,6 +110,9 @@
             </Border>
 
             <UniformGrid Height="200" Rows="2" Columns="3">
+                <!--In UniformGrids kann man nur die Anzahl der Spalten und Zeilen angeben. Die Zuordnung der Elemente
+                zu den Zellen erfolgt durch die Reihenfolge der Elementdeklaration in Xaml. Eine Angabe von Spalten- und Zeilen-
+                größe ist nicht möglich.-->
                 <Button Content="Click"/>
                 <Button Content="Click"/>
                 <Button Content="Click"/>
@@ -98,6 +121,7 @@
             </UniformGrid>
 
             <Viewbox Stretch="Fill" Height="100">
+                <!--ViewBoxen bieten wie Images die Stretch-Property an, wodurch die Präsentation des Inhakts manipuliert werden kann-->
                 <Button Content="Moin"/>
             </Viewbox>
         </StackPanel>

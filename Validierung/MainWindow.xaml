@@ -8,9 +8,12 @@
         Title="MainWindow" Height="463.158" Width="390.789">
 
     <Window.Resources>
+        <!--ErrorTemplates sind ControlTemplates, welche das Element im Falle einer verletzten ValidationRule anzeigt-->
         <ControlTemplate x:Key="ctpError">
             <StackPanel>
                 <Border BorderBrush="Red" BorderThickness="2">
+                    <!--AdornedElementPlaceholder sind Platzhalterelemente für das ürsprüngliche Element in
+                        ErrorTemplates-->
                     <AdornedElementPlaceholder x:Name="aep"/>
                 </Border>
                 <TextBlock Foreground="Red"
@@ -43,6 +46,9 @@
             <TextBox.Text>
                 <Binding ElementName="tblIpOutput" Path="Text" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
+                        <!--ValidationRules definieren, wann eine Eingabe durch den Benutzer eine zulässige Eingabe ist und
+                        geben das Ergebnis dieser Prüfung an die GUI zurück. Im False-Fall wird gegebenenfalls ein ErrorTemplate
+                        angezeigt. ValidationsRules werden als C#-Klasse abgelegt.-->
                         <local:Ipv4Validierung/>
                     </Binding.ValidationRules>
                 </Binding>
@@ -50,9 +56,11 @@
         </TextBox>
         <TextBlock x:Name="tblIpOutput"/>
 
+        <!--Mit der Property ValidatesOnExceptions können vom CodeBehind geworfene Exceptions als ValidierungsFall von der GUI aufgefangen werden-->
         <TextBox x:Name="tbxName"
                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
                  Validation.ErrorTemplate="{StaticResource ctpError2}"/>
+        <!--Mit der Property ValidatesOnDataErrors können durch bestimmte Interfaces direkt in der Datenklasse ValidierungsFälle definiert werden-->
         <TextBox x:Name="tbxAlter"
                  Text="{Binding Alter, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ctpError2}"/>
@@ -62,6 +70,8 @@
                 <Style TargetType="Button">
                     <Setter Property="IsEnabled" Value="False"/>
                     <Style.Triggers>
+                        <!--Mittels des folgende MultiDataTrigger wird überprüft, ob ein Validierungsfehler vorliegt,
+                        und gegebenenfalls der OK-Button gesperrt-->
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=tbxIpInput, Path=(Validation.HasError)}" Value="False"/>

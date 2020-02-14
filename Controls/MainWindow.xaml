@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="786.837" Width="271.255">
     <StackPanel>
+        <!--Labels besitzen, wie die meisten Controls und alle Container eine Content-Eigenschaft, welche
+        mit weiteren Containern/Controls befüllt werden können (Auch hier darf nur ein Root-Element vohanden sein).-->
         <Label Content="Hallo"
                Foreground="Red"
                FontSize="20"
@@ -15,6 +17,8 @@
                HorizontalContentAlignment="Center"
                Height="50"/>
 
+        <!--TextBlöcke sind Labels, welche auf Strings spezialisiert sind. Sie besitzen statt der
+            Content- die Text-Property-->
         <TextBlock Text="Hallo&#x0a;Welthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
                    TextWrapping="Wrap"/>
 
@@ -43,6 +47,8 @@
             
         </TextBox>
 
+        <!--ItemControls wie ComboBoxen oder ListViews können über die ItemsSource-Property mit Daten 
+        oder in XAML mit Items mit Content-Property bestückt werden-->
         <ComboBox IsEditable="True">
             <ComboBoxItem Content="Eintrag1"/>
             <ComboBoxItem Content="Eintrag2"/>
@@ -52,6 +58,7 @@
                   IsChecked="{x:Null}"
                   IsThreeState="True"/>
 
+        <!--RadioButtons können einer Group zugeordnet werden, wodurch nur einer der Buttons angewählt sein darf-->
         <RadioButton Content="Eins" GroupName="meineGruppe" IsChecked="true"/>
         <RadioButton Content="Zwei" GroupName="meineGruppe"/>
 
@@ -68,6 +75,8 @@
                      Value="25"
                      IsIndeterminate="False"/>
 
+        <!--Menüs, wie ein Fenster-Menü (Menu) oder ein Kontext-Menü (ContextMenu) werden mit MenuItems befüllt.
+        Diese können ihrerseits weitere MenuItems aufnehmen, wodurch sich dann Untermenüs bilden-->
         <Menu>
             <MenuItem Header="Datei">
                 <MenuItem Header="Beenden">
@@ -79,6 +88,7 @@
             </MenuItem>
         </Menu>
 
+        <!--Ribbon-NS: System.Windows.Controls.Ribbon-->
         <Ribbon>
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu>
